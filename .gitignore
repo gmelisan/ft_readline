@@ -1,0 +1,5 @@
+readline
+*.o
+log
+.vscode/
+bufout
