@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/11 03:07:07 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:50:13 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ static void		move_cur_start(void)
 	i = -1;
 	while (++i < crow)
 		term_putstr("up");
-	i = -1;
-	while (++i < ccol)
-		term_putstr("le");
+	/* i = -1; */
+	/* while (++i < ccol) */
+	/* 	term_putstr("le"); */
+	term_putstr("cr");
 }
 
 static  void		move_cur_right(int oldpos, int width)
@@ -73,20 +74,6 @@ static void		move_cur_left(int oldpos, int width)
 		term_putstr("le");
 }
 
-/* Not works. Now just using termcap("ce") instead. */
-
-/* static void		clear_to_end(int pos, int width) */
-/* { */
-/* 	int i; */
-
-/* 	i = pos % width - 1; */
-/* 	while (++i < width) */
-/* 		ft_putchar(' '); */
-/* 	i--; */
-/* 	while (i > pos) */
-/* 		move_cur_left(i--, width); */
-/* } */
-
 static t_string	*build_bufout(t_string str, int width)
 {
 	int			rows;
@@ -106,28 +93,6 @@ static t_string	*build_bufout(t_string str, int width)
 		str_fixlen(res + i);
 	}
 	return (res);
-}
-
-/*
-** These checks are to be sure we are not out of buffer array when resizing.
-*/
-
-static char		getchar(t_buffer newbuf, int i, int j)
-{
-	if (newbuf.out.cols >= g_buffer.out.cols) /* screeen enlarge */
-	{
-		if (i < newbuf.out.rows && j < (int)newbuf.out.b[i].len)
-			return (str_get(newbuf.out.b[i], j));
-		else
-			return (0);
-	}
-	else /* screen shrink */
-	{
-		if (i < g_buffer.out.rows && j < (int)g_buffer.out.b[i].len)
-			return (str_get(g_buffer.out.b[i], j));
-		else
-			return (0);
-	}
 }
 
 static t_string *get_outstr(t_buffer *buf, int i)
@@ -179,8 +144,8 @@ static  void	redisplay(t_buffer newbuf, int resize)
 		j = -1;
 		while (++j < cols(&newbuf, i))
 		{
-			if (getchar(newbuf, i, j))
-				ft_putchar(getchar(newbuf, i, j));
+			if (str_get(newbuf.b, pos))
+				ft_putchar(str_get(newbuf.b, pos));
 			else
 				ft_putchar(' ');
 			if (pos % newbuf.out.cols == newbuf.out.cols - 1)

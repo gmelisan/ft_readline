@@ -6,7 +6,7 @@
 #    By: kemmeric <kemmeric@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 12:48:23 by gmelisan          #+#    #+#              #
-#    Updated: 2019/06/28 08:23:19 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/11 20:20:52 by gmelisan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ $(OBJ_FTVECTOR): ./include/ft_vector.h ./include/libft.h
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -I./include -c -o $@ $<
-#	@echo "\033[1;34mCompiling ($(CFLAGS)) \033[0;36m$<\033[0m"
+#	@echo "\033[34;1mCompiling ($(CFLAGS)) \033[0;36m$<\033[0m"
 	@echo "Compiling ($(CFLAGS)) $<"
 
 clean:

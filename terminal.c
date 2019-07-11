@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:37:33 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/06 18:48:43 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:52:18 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,26 @@ void	term_restore(void)
 	tcsetattr(STDIN, TCSANOW, &g_init_tios);
 	term_putstr("ke");
 	ft_printf("\n");
+}
+
+
+/*
+** Not in use, for debug only
+*/
+
+void	term_getpos(int *row, int *col)
+{
+	char	buf[ONECAP_BUFFER];
+	int		i;
+
+	*row = 0;
+	*col = 0;
+	bzero(buf, ONECAP_BUFFER);
+	term_putstr("u7");
+	read(STDIN, buf, ONECAP_BUFFER - 1);
+	*row = ft_atoi(buf + 2) - 1;
+	i = 0;
+	while (i < ONECAP_BUFFER && buf[i] != ';')
+		i++;
+	*col = ft_atoi(buf + ++i) - 1;
 }

@@ -6,7 +6,7 @@
 /*   By: gmelisan <gmelisan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 15:56:36 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/06/29 09:26:21 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:27:49 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define USE_COLORS		1
 
 
-# define intmax_t		__intmax_t
-# define uintmax_t		__uintmax_t
+//# define intmax_t		__intmax_t
+//# define uintmax_t		__uintmax_t
 
 # define COLOR_BLACK	"\033[0;30m"
 # define COLOR_RED		"\033[0;31m"
