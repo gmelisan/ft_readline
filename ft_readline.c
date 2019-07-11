@@ -6,15 +6,11 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:29:42 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/08 21:44:13 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/11 03:33:08 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
-#include "display.h"
-#include "signal_handlers.h"
-#include "terminal.h"
-#include "actions.h"
 
 static void	sig_init(void)
 {
@@ -39,11 +35,16 @@ static void init_bindings(t_vector *key_bindings)
 	*key_bindings = vec_create(0, sizeof(t_binding)); /* todo: vec_xcreate */
 	bind(key_bindings, ARROW_LEFT, move_backward);
 	bind(key_bindings, ARROW_RIGHT, move_forward);
+	bind(key_bindings, CTRL_B, move_backward);
+	bind(key_bindings, CTRL_F, move_forward);
 	bind(key_bindings, BACKSPACE, backspace);
 	bind(key_bindings, DEL, backspace);
 	bind(key_bindings, CTRL_D, delete);
 	bind(key_bindings, ENTER, self_insert);
 	bind(key_bindings, CTRL_L, clear_screen);
+	bind(key_bindings, CTRL_A, goto_start);
+	bind(key_bindings, CTRL_E, goto_end);
+	bind(key_bindings, CTRL_T, swap_chars);
 	i = 32;
 	while (ft_isprint(i))
 		bind(key_bindings, i++, self_insert);
@@ -150,13 +151,3 @@ char	*ft_readline(char *prompt)
 	term_restore();
 	return (line.str.s);
 }
-
-/*
-
-readline # Abcdef
-
-line -> prompt, str, cpos
-
-buffer -> str, cpos, out(rows, cols)
-
- */

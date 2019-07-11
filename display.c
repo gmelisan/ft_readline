@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/11 02:55:40 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/11 03:07:07 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "terminal.h"
 
 t_buffer		g_buffer;
+
+int				max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
 
 /*
 ** In fact we don't need to go to start. May be fix later.
@@ -149,7 +156,7 @@ static int		cols(t_buffer *newbuf, int i)
 	new = get_outstr(&g_buffer, i);
 	oldlen = old ? old->len : 0;
 	newlen = new ? new->len : 0;
-	return (oldlen > newlen ? oldlen : newlen);
+	return (max(oldlen, newlen));
 }
 
 /*

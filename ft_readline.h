@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:35:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/08 17:05:57 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/11 03:33:22 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
-/* # include <sys/stat.h> */
 # include <sys/ioctl.h>
 
 # include "libft.h"
@@ -32,6 +31,8 @@
 # include "keys.h"
 # include "bindings.h"
 # include "display.h"
+# include "signal_handlers.h"
+# include "actions.h"
 
 extern int	g_logfd;
 
