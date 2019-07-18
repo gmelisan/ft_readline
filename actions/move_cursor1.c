@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:49:30 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 04:38:52 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 19:23:33 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void	backward_char(t_line *line)
 		line->cpos--;
 }
 
-void	forward_line(t_line *line)
+void	backward_line(t_line *line)
 {
 	int w;
 
 	w = get_screenwidth();
-	if (line->cpos < w)
+	if (line->cpos < w - (int)line->prompt.len)
 		return ;
 	line->cpos -= w;
 	if (line->cpos < 0)
 		line->cpos = 0;
 }
 
-void	backward_line(t_line *line)
+void	forward_line(t_line *line)
 {
 	int w;
 	int last_col_start;
