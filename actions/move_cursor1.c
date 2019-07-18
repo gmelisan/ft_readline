@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:49:30 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 19:49:31 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 04:38:52 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	forward_char(t_line *line)
 {
-	if (line->cpos < (int)line->str.len)
+	if (line->cpos < (int)line->str->len)
 		line->cpos++;
 }
 
 void	backward_char(t_line *line)
 {
-	if (line->cpos > line->start)
+	if (line->cpos > 0)
 		line->cpos--;
 }
 
@@ -32,8 +32,8 @@ void	forward_line(t_line *line)
 	if (line->cpos < w)
 		return ;
 	line->cpos -= w;
-	if (line->cpos < line->start)
-		line->cpos = line->start;
+	if (line->cpos < 0)
+		line->cpos = 0;
 }
 
 void	backward_line(t_line *line)
@@ -42,10 +42,10 @@ void	backward_line(t_line *line)
 	int last_col_start;
 
 	w = get_screenwidth();
-	last_col_start = (line->str.len / w) * w;
+	last_col_start = (line->str->len / w) * w;
 	if (line->cpos >= last_col_start)
 		return ;
 	line->cpos += w;
-	if (line->cpos > (int)line->str.len)
-		line->cpos = line->str.len;
+	if (line->cpos > (int)line->str->len)
+		line->cpos = line->str->len;
 }

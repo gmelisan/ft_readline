@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 21:18:46 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/17 00:48:45 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 19:00:41 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,34 @@
 static void	del(void *content, size_t size)
 {
 	if (size || !size)
-		free(content);
+		str_delete((t_string *)content);
+}
+
+t_history	*history_copy(t_history *history)
+{
+	t_history	*newhist;
+	t_string	str;
+
+	newhist = ft_xmemalloc(sizeof(*newhist));
+	if (history->size == 0)
+		return (newhist);
+	while (history->item->prev)
+		history->item = history->item->prev;
+	while (history->item->next)
+	{
+		str = str_xduplicate(*((t_string *)history->item->content));
+		history_push(newhist, str);
+		history->item = history->item->next;
+	}
+	str = str_xduplicate(*((t_string *)history->item->content));
+	history_push(newhist, str);
+	return (newhist);
 }
 
 void		history_load(t_history *history, char *path)
 {
 	int			fd;
-	char		*str;
+	t_string	str;
 	int			ret;
 
 	if (!path)
@@ -31,9 +52,10 @@ void		history_load(t_history *history, char *path)
 	if ((fd = open(path, O_RDONLY | O_CREAT, S_IRWXU)) < 0
 		&& (g_errno = ERROR_OPENHIST))
 		return ;
-	while ((ret = get_next_line(fd, &str)) > 0)
+	while ((ret = get_next_line(fd, &str.s)) > 0)
 	{
-		ft_dlstaddback(&history->item, ft_dlstnew(str, ft_strlen(str) + 1));
+		str_fixlen(&str);
+		ft_dlstaddback(&history->item, ft_dlstnew(&str, sizeof(str)));
 		history->size++;
 	}
 	if (ret < 0)
@@ -44,7 +66,6 @@ void		history_load(t_history *history, char *path)
 		history->size--;
 	}
 	close(fd);
-	return ;
 }
 
 void		history_clear(t_history *history)
@@ -56,46 +77,70 @@ void		history_clear(t_history *history)
 	}
 }
 
-static void	history_save(t_history *history, int fd, int append)
-{
-	if (append)
-	{
-		while (history->item->next)
-			history->item = history->item->next;
-		ft_fdprintf(fd, "%s\n", (char *)history->item->content);
-	}
-	else
-	{
-		while (history->item->prev)
-			history->item = history->item->prev;
-		while (history->item->next)
-		{
-			ft_fdprintf(fd, "%s\n", (char *)history->item->content);
-			history->item = history->item->next;
-		}
-		ft_fdprintf(fd, "%s\n", (char *)history->item->content);
-	}
-}
-
-void		history_push(t_history *history, char *str)
+static void	history_save_rewrite(t_history *history)
 {
 	int fd;
-	int append;
 
-	append = 1;
-	if (*str == 0)
+	if ((fd = open(history->path, O_RDWR | O_TRUNC | O_CREAT, S_IRWXU)) < 0
+		&& (g_errno = ERROR_OPENHIST))
 		return ;
-	if (history->size >= HISTORY_MAXSIZE)
+	while (history->item->prev)
+		history->item = history->item->prev;
+	if (history->item->next)
 	{
-		append = 0;
-		ft_dlstdelfront(&history->item, del);
-		history->size--;
+		history->item = history->item->next;
+		while (history->item->next)
+		{
+			ft_fdprintf(fd, "%s\n", ((t_string *)history->item->content)->s);
+			history->item = history->item->next;
+		}
 	}
-	fd = open(history->path,
-				O_RDWR | (append ? O_APPEND : O_TRUNC) | O_CREAT, S_IRWXU);
-	ft_dlstaddback(&history->item, ft_dlstnew(str, ft_strlen(str) + 1));
-	history_save(history, fd, append);
-	history->size++;
+	ft_fdprintf(fd, "%s\n", ((t_string *)history->item->content)->s);
 	close(fd);
 }
 
+static void	history_save_append(t_history *history)
+{
+	int fd;
+
+	if ((fd = open(history->path, O_RDWR | O_APPEND | O_CREAT, S_IRWXU)) < 0
+		&& (g_errno = ERROR_OPENHIST))
+		return ;
+	while (history->item->next)
+			history->item = history->item->next;
+	ft_fdprintf(fd, "%s\n", ((t_string *)history->item->content)->s);
+	close(fd);
+}
+
+void	history_save(t_history *history, t_string *str)
+{
+	t_string	newstr;
+
+	if (str->len == 0)
+		return ;
+	newstr = str_xduplicate(*str);
+	history_push(history, newstr);
+	if (!history->path)
+		return ;
+	if (history->size >= HISTORY_MAXSIZE)
+		history_save_rewrite(history);
+	else
+		history_save_append(history);
+}
+
+void		history_push(t_history *history, t_string str)
+{
+	if (history->size >= HISTORY_MAXSIZE)
+	{
+		ft_dlstdelfront(&history->item, del);
+		history->size--;
+	}
+	ft_dlstaddback(&history->item, ft_dlstnew(&str, sizeof(str)));
+	history->size++;
+}
+
+/* void		history_dellast(t_history *history) */
+/* { */
+/* 	ft_dlstdelend(&history->item, del); */
+/* 	history->size--; */
+/* } */

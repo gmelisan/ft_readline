@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:38:41 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 19:38:47 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 04:28:42 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	beginning_of_line(t_line *line)
 {
-	line->cpos = line->start;
+	line->cpos = 0;
 }
 
 void	end_of_line(t_line *line)
 {
-	line->cpos = line->str.len;
+	line->cpos = line->str->len;
 }
 
 void	clear_screen(t_line *line)

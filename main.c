@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:54:13 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/17 00:37:49 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 17:06:22 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		main(void)
 	prompt = str_xcopy("readline # ");
 	while (42)
 	{
-		res = ft_readline(prompt.s, history);
+		res = ft_readline(prompt.s, &history);
 		if (!res)
 			break ;
 		if (g_errno)
 			printerr();
 		else
-			ft_printf(" -> \"%s\"\n", res + prompt.len);
+			ft_printf("-> \"%s\"\n", res);
 		ft_strdel(&res);
 	}
 	str_delete(&prompt);

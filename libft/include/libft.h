@@ -6,7 +6,7 @@
 /*   By: gmelisan <gmelisan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 13:20:56 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/16 22:17:02 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 05:10:06 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ t_dlist				*ft_dlstnew(void const *content, size_t content_size);
 void				ft_dlstdelone(t_dlist **alst, void (*del)(void *, size_t));
 void				ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t));
 void				ft_dlstdelfront(t_dlist **alst, void (*del)(void *, size_t));
+void				ft_dlstdelend(t_dlist **alst, void (*del)(void *, size_t));
 void				ft_dlstadd(t_dlist **alst, t_dlist *new);
 void				ft_dlstiter(t_dlist *lst, void (*f)(t_dlist *elem));
 void				ft_dlstaddback(t_dlist **alst, t_dlist *new);

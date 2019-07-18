@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:40:53 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 17:03:54 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 04:38:52 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		loginfo(t_line *line)
 				line->keybuf[0], line->keybuf[1],
 				line->keybuf[2], line->keybuf[3],
 				line->keybuf[4], line->keybuf[5],
-				line->str.s, line->cpos);
+				line->str->s, line->cpos);
 }
 
 int				input_loop(t_line *line, t_vector *key_bindings)
@@ -58,7 +58,7 @@ int				input_loop(t_line *line, t_vector *key_bindings)
 				if ((ret = read(STDIN, line->keybuf + 2, KEYBUF_SIZE - 3)) <= 0)
 					break ;
 		}
-		if (*line->keybuf == CTRL_D && (int)line->str.len <= line->start)
+		if (*line->keybuf == CTRL_D && line->str->len == 0)
 			return (1);
 		perform_action(line, key_bindings);
 		loginfo(line);

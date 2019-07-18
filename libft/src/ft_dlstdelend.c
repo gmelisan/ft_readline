@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line.h                                             :+:      :+:    :+:   */
+/*   ft_dlstdelend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 16:10:45 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 06:42:38 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/18 05:10:38 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/18 05:17:29 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_H
-# define LINE_H
+#include "libft.h"
 
-# include "defs.h"
-# include "history.h"
-
-typedef struct	s_line
+void	ft_dlstdelend(t_dlist **alst, void (*del)(void *, size_t))
 {
-	t_string	*str;			/* shortcut for history->item->content */
-	char		*result;		/* what we return */
-	t_string	prompt;
-	int			cpos;			/* relative to `str' */
-	char		keybuf[KEYBUF_SIZE];
-	int			overwrite_mode;
-	t_history	*history;
-	t_history	*history_orig;
-	t_list		*changes;		/* todo: */
-}				t_line;
-
-#endif
+	if (!alst || !*alst)
+		return ;
+	while ((*alst)->next)
+			*alst = (*alst)->next;
+	if ((*alst)->prev)
+	{
+		*alst = (*alst)->prev;
+		ft_dlstdelone(&(*alst)->next, del);
+		(*alst)->nextxb = NULL;
+	}
+	else
+		ft_dlstdel(alst, del);
+}

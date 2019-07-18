@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 17:16:35 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/18 04:47:10 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ static int		cols(t_buffer *newbuf, int i)
 ** TODO: skip repeated characters.
 */
 
-static  void	redisplay(t_buffer newbuf, int resize)
+static  void	redisplay(t_buffer *newbuf, int resize)
 {
 	int i;
 	int j;
@@ -144,33 +144,34 @@ static  void	redisplay(t_buffer newbuf, int resize)
 	move_cur_start();
 	i = -1;
 	pos = 0;
-	while (++i < max(newbuf.out.rows, g_buffer.out.rows))
+	while (++i < max(newbuf->out.rows, g_buffer.out.rows))
 	{
 		j = -1;
-		while (++j < cols(&newbuf, i))
+		while (++j < cols(newbuf, i))
 		{
-			if (str_get(newbuf.b, pos))
-				ft_fdprintf(STDIN, "%c", (str_get(newbuf.b, pos)));
+			if (str_get(newbuf->b, pos))
+				ft_fdprintf(STDIN, "%c", (str_get(newbuf->b, pos)));
 			else
 				ft_putchar(' ');
-			if (pos % newbuf.out.cols == newbuf.out.cols - 1)
-				move_cur_right(pos, newbuf.out.cols);
+			if (pos % newbuf->out.cols == newbuf->out.cols - 1)
+				move_cur_right(pos, newbuf->out.cols);
 			pos++;
 		}
 	}
 	if (resize)
 		term_putstr("ce");
-	while (pos != newbuf.cpos)
-		move_cur_left(pos--, newbuf.out.cols);
+	while (pos != newbuf->cpos)
+		move_cur_left(pos--, newbuf->out.cols);
 }
 
-void	init_linebuf(t_line line)
+void	init_linebuf(t_line *line)
 {
 	struct winsize	ws;
 
 	ioctl(STDOUT, TIOCGWINSZ, &ws);
-	g_buffer.b = str_xduplicate(line.str);
-	g_buffer.cpos = line.cpos;
+	g_buffer.b = str_xduplicate(*line->str);
+	str_xaddfront(&g_buffer.b, line->prompt.s, line->prompt.len);
+	g_buffer.cpos = line->prompt.len + line->cpos;
 	g_buffer.out.rows = g_buffer.b.len / ws.ws_col + 1;
 	g_buffer.out.cols = ws.ws_col;
 	g_buffer.out.b = build_bufout(g_buffer.b, ws.ws_col);
@@ -194,16 +195,22 @@ void	clear_linebuf(void)
 
 void	update_line(t_line *line)
 {
-	t_buffer			newbuf;
+	t_buffer		newbuf;
 	struct winsize	ws;
 
 	ioctl(STDOUT, TIOCGWINSZ, &ws);
-	newbuf.cpos = (line ? line->cpos : g_buffer.cpos);
-	newbuf.b = str_xduplicate(line ? line->str : g_buffer.b);
+	if (line)
+	{
+		newbuf.b = str_xduplicate(*line->str);
+		str_xaddfront(&newbuf.b, line->prompt.s, line->prompt.len);
+	}
+	else
+		newbuf.b = str_xduplicate(g_buffer.b);
+	newbuf.cpos = (line ? line->prompt.len + line->cpos : g_buffer.cpos);
 	newbuf.out.rows = newbuf.b.len / ws.ws_col + 1;
 	newbuf.out.cols = ws.ws_col;
 	newbuf.out.b = build_bufout(newbuf.b, ws.ws_col);
-	redisplay(newbuf, line ? 0 : 1);
+	redisplay(&newbuf, line ? 0 : 1);
 	clear_linebuf();
 	ft_memcpy(&g_buffer, &newbuf, sizeof(t_buffer));
 }

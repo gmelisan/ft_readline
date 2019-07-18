@@ -6,7 +6,7 @@
 #    By: kemmeric <kemmeric@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 12:48:23 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/16 22:30:05 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/18 05:14:11 by gmelisan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
 ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o \
 ft_lstmap.o ft_dlstnew.o ft_dlstdelone.o ft_dlstdel.o ft_dlstadd.o \
 ft_dlstiter.o ft_dlstaddback.o ft_dlstsize.o ft_dlstdelfront.o \
+ft_dlstdelend.o \
 \
 ft_swap.o ft_range.o ft_power.o ft_realloc.o get_next_line.o \
 get_lines.o ft_lstaddback.o ft_strarrdel.o get_lines.o ft_lstsize.o \
