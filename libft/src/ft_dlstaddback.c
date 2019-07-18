@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errno.h                                         :+:      :+:    :+:   */
+/*   ft_dlstaddback.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/03 16:39:35 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/16 21:50:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/16 20:26:44 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/17 00:31:00 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERRNO_H
-# define FT_ERRNO_H
+#include "libft.h"
 
-# include "ft_readline.h"
-
-enum	e_errno
+void		ft_dlstaddback(t_dlist **alst, t_dlist *new)
 {
-	ERROR_NONE = 0,
-	ERROR_MALLOC = 1042,
-	ERROR_READ,
-	ERROR_KEYBUF_OF,
-	ERROR_TERMCAP,
-	ERROR_UNK_TERMTYPE,
-	ERROR_OPENHIST,
-	ERROR_GNLHIST
-};
-
-extern int	g_errno;
-
-# define ERRINFOLEN		64
-
-char	g_errinfo[ERRINFOLEN];
-
-void	printerr(void);
-
-#endif
+	if (!alst || !new)
+		return ;
+	if (!*alst)
+		*alst = new;
+	else
+	{
+		while ((*alst)->next)
+			*alst = (*alst)->next;
+		new->prev = *alst;
+		(*alst)->next = new;
+		*alst = (*alst)->next;
+	}
+}

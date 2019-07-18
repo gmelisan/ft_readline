@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errno.h                                         :+:      :+:    :+:   */
+/*   move_cursor3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/03 16:39:35 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/16 21:50:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/15 19:38:41 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/15 19:38:47 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERRNO_H
-# define FT_ERRNO_H
+#include "actions.h"
 
-# include "ft_readline.h"
-
-enum	e_errno
+void	beginning_of_line(t_line *line)
 {
-	ERROR_NONE = 0,
-	ERROR_MALLOC = 1042,
-	ERROR_READ,
-	ERROR_KEYBUF_OF,
-	ERROR_TERMCAP,
-	ERROR_UNK_TERMTYPE,
-	ERROR_OPENHIST,
-	ERROR_GNLHIST
-};
+	line->cpos = line->start;
+}
 
-extern int	g_errno;
+void	end_of_line(t_line *line)
+{
+	line->cpos = line->str.len;
+}
 
-# define ERRINFOLEN		64
-
-char	g_errinfo[ERRINFOLEN];
-
-void	printerr(void);
-
-#endif
+void	clear_screen(t_line *line)
+{
+	if (line)
+		term_putstr("cl");
+}

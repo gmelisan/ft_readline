@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:58:25 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/06 14:48:03 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:48:06 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ void	sigh_sigsegv(int sig);
 void	sigh_sigabrt(int sig);
 void	sigh_sigint(int sig);
 void	sigh_sigwinch(int sig);
+
+extern int	g_logfd;
 
 #endif

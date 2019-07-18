@@ -6,7 +6,7 @@
 /*   By: gmelisan <gmelisan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 13:20:56 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/02/20 18:16:27 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/16 22:17:02 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,23 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaddback(t_list **alst, t_list *new);
 size_t				ft_lstsize(t_list *lst);
+
+typedef struct		s_dlist
+{
+	void			*content;
+	size_t			content_size;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}					t_dlist;
+
+t_dlist				*ft_dlstnew(void const *content, size_t content_size);
+void				ft_dlstdelone(t_dlist **alst, void (*del)(void *, size_t));
+void				ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t));
+void				ft_dlstdelfront(t_dlist **alst, void (*del)(void *, size_t));
+void				ft_dlstadd(t_dlist **alst, t_dlist *new);
+void				ft_dlstiter(t_dlist *lst, void (*f)(t_dlist *elem));
+void				ft_dlstaddback(t_dlist **alst, t_dlist *new);
+size_t				ft_dlstsize(t_dlist *lst);
+
 
 #endif

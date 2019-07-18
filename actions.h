@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 19:51:08 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/11 03:11:30 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/17 00:54:45 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,32 @@
 # include "ft_readline.h"
 
 void	self_insert(t_line *line);
-void	backspace(t_line *line);
-void	delete(t_line *line);
-void	move_forward(t_line *line);
-void	move_backward(t_line *line);
+void	backward_delete_char(t_line *line);
+void	delete_char(t_line *line);
+
+void	forward_char(t_line *line);
+void	backward_char(t_line *line);
+void	forward_word(t_line *line);
+void	backward_word(t_line *line);
+void	forward_line(t_line *line);
+void	backward_line(t_line *line);
+
 void	history_prev(t_line *line);
 void	history_next(t_line *line);
+
 void	undo(t_line *line);
+
 void	clear_screen(t_line *line);
-void	goto_start(t_line *line);
-void	goto_end(t_line *line);
-void	swap_chars(t_line *line);
+
+void	beginning_of_line(t_line *line);
+void	end_of_line(t_line *line);
+
+void	transpose_chars(t_line *line);
+void	transpose_words(t_line *line);
+
+void	overwrite_mode(t_line *line);
+
+void	previous_history(t_line *line);
+void	next_history(t_line *line);
 
 #endif

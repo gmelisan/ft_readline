@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errno.h                                         :+:      :+:    :+:   */
+/*   ft_dlstdel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/03 16:39:35 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/16 21:50:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/16 20:06:21 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/16 23:33:38 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERRNO_H
-# define FT_ERRNO_H
+#include "libft.h"
 
-# include "ft_readline.h"
-
-enum	e_errno
+void	ft_dlstdel(t_dlist **alst, void (*del)(void *, size_t))
 {
-	ERROR_NONE = 0,
-	ERROR_MALLOC = 1042,
-	ERROR_READ,
-	ERROR_KEYBUF_OF,
-	ERROR_TERMCAP,
-	ERROR_UNK_TERMTYPE,
-	ERROR_OPENHIST,
-	ERROR_GNLHIST
-};
+	t_dlist *temp;
 
-extern int	g_errno;
-
-# define ERRINFOLEN		64
-
-char	g_errinfo[ERRINFOLEN];
-
-void	printerr(void);
-
-#endif
+	if (!alst || !*alst)
+		return ;
+	while ((*alst)->prev)
+		*alst = (*alst)->prev;
+	while (*alst)
+	{
+		temp = (*alst)->next;
+		ft_dlstdelone(alst, del);
+		*alst = temp;
+	}
+}

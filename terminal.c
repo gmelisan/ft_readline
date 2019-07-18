@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:37:33 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/11 20:52:18 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/15 16:31:05 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,12 @@ void	term_getpos(int *row, int *col)
 		i++;
 	*col = ft_atoi(buf + ++i) - 1;
 }
+
+/* 
+** About normal and application modes:
+** 
+** https://unix.stackexchange.com/questions/139744/
+** how-to-enable-control-key-combinations-for-gnu-screen-on-putty
+**
+** https://invisible-island.net/xterm/manpage/xterm.html#h3-Special-Keys
+*/

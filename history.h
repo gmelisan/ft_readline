@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errno.h                                         :+:      :+:    :+:   */
+/*   history.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/03 16:39:35 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/16 21:50:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/15 21:15:38 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/17 01:19:31 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERRNO_H
-# define FT_ERRNO_H
+#ifndef HISTORY_H
+# define HISTORY_H
 
 # include "ft_readline.h"
 
-enum	e_errno
+# define HISTORY_MAXSIZE		10
+# define DEFAULT_HIST_PATH		"./.42sh.history"
+
+typedef struct	s_history
 {
-	ERROR_NONE = 0,
-	ERROR_MALLOC = 1042,
-	ERROR_READ,
-	ERROR_KEYBUF_OF,
-	ERROR_TERMCAP,
-	ERROR_UNK_TERMTYPE,
-	ERROR_OPENHIST,
-	ERROR_GNLHIST
-};
+	t_dlist		*item;
+	int			size;
+	char		*path;
+}				t_history;
 
-extern int	g_errno;
-
-# define ERRINFOLEN		64
-
-char	g_errinfo[ERRINFOLEN];
-
-void	printerr(void);
+void		history_load(t_history *history, char *path);
+void		history_push(t_history *history, char *str);
+void		history_clear(t_history *history);
 
 #endif

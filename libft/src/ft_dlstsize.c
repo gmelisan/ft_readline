@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errno.h                                         :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/03 16:39:35 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/16 21:50:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/16 20:38:58 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/16 20:52:23 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERRNO_H
-# define FT_ERRNO_H
+#include "libft.h"
 
-# include "ft_readline.h"
-
-enum	e_errno
+size_t		ft_dlstsize(t_dlist *lst)
 {
-	ERROR_NONE = 0,
-	ERROR_MALLOC = 1042,
-	ERROR_READ,
-	ERROR_KEYBUF_OF,
-	ERROR_TERMCAP,
-	ERROR_UNK_TERMTYPE,
-	ERROR_OPENHIST,
-	ERROR_GNLHIST
-};
+	t_dlist	*il;
+	size_t	size;
 
-extern int	g_errno;
-
-# define ERRINFOLEN		64
-
-char	g_errinfo[ERRINFOLEN];
-
-void	printerr(void);
-
-#endif
+	il = lst;
+	size = 0;
+	if (!il)
+		return (size);
+	while (il)
+	{
+		il = il->prev;
+		size++;
+	}
+	il = lst;
+	while (il)
+	{
+		il = il->next;
+		size++;
+	}
+	size++;
+	return (size);
+}

@@ -6,7 +6,7 @@
 #    By: kemmeric <kemmeric@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 12:48:23 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/11 20:20:52 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/16 22:30:05 by gmelisan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,16 @@ ft_memalloc.o ft_memdel.o ft_strnew.o ft_strdel.o ft_strclr.o \
 ft_striter.o ft_striteri.o ft_strmap.o ft_strmapi.o ft_strequ.o \
 ft_strnequ.o ft_strsub.o ft_strjoin.o ft_strtrim.o ft_strsplit.o \
 ft_putchar.o ft_putstr.o ft_putendl.o ft_putnbr.o ft_putchar_fd.o \
-ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_lstnew.o \
-ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o ft_lstmap.o \
+ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
+\
+ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o \
+ft_lstmap.o ft_dlstnew.o ft_dlstdelone.o ft_dlstdel.o ft_dlstadd.o \
+ft_dlstiter.o ft_dlstaddback.o ft_dlstsize.o ft_dlstdelfront.o \
+\
 ft_swap.o ft_range.o ft_power.o ft_realloc.o get_next_line.o \
 get_lines.o ft_lstaddback.o ft_strarrdel.o get_lines.o ft_lstsize.o \
-ft_atoi.o ft_itoa.o ft_qsort.o ft_strnjoin.o ft_cntdigits.o))
+ft_atoi.o ft_itoa.o ft_qsort.o ft_strnjoin.o ft_cntdigits.o \
+))
 
 OBJ_FTPRINTF = $(sort $(addprefix ./src/ft_printf/, \
 ft_printf.o ft_vprintf.o ft_fdprintf.o ft_vfdprintf.o \

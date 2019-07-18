@@ -28,8 +28,8 @@
 # define USE_COLORS		1
 
 
-//# define intmax_t		__intmax_t
-//# define uintmax_t		__uintmax_t
+# define intmax_t		__intmax_t
+# define uintmax_t		__uintmax_t
 
 # define COLOR_BLACK	"\033[0;30m"
 # define COLOR_RED		"\033[0;31m"

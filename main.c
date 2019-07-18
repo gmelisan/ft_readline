@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:54:13 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/08 17:49:50 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/17 00:37:49 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ int		main(void)
 	int			exit_flag;
 	char		*res;
 	t_string	prompt;
+	t_history	*history;
 
 	exit_flag = 0;
+	history = ft_xmemalloc(sizeof(*history));
+	history_load(history, DEFAULT_HIST_PATH);
 	g_logfd = open("./log", O_RDWR | O_APPEND | O_CREAT, S_IRWXU);
 	ft_fdprintf(g_logfd, "Start\n");
 	prompt = str_xcopy("readline # ");
 	while (42)
 	{
-		res = ft_readline(prompt.s);
+		res = ft_readline(prompt.s, history);
 		if (!res)
 			break ;
 		if (g_errno)
@@ -38,5 +41,6 @@ int		main(void)
 	str_delete(&prompt);
 	ft_fdprintf(g_logfd, "End\n");
 	close(g_logfd);
+	history_clear(history);
 	return (0);
 }

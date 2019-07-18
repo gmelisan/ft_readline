@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:35:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/11 03:33:22 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/16 23:19:57 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # include "xmalloc.h"
 # include "str_xfuncs.h"
+# include "vec_xfuncs.h"
 # include "defs.h"
 # include "ft_errno.h"
 # include "line.h"
@@ -33,9 +34,9 @@
 # include "display.h"
 # include "signal_handlers.h"
 # include "actions.h"
+# include "input_loop.h"
+# include "history.h"
 
-extern int	g_logfd;
-
-char	*ft_readline(char *prompt);
+char	*ft_readline(char *prompt, t_history *history);
 
 #endif

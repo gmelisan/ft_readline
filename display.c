@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/11 20:50:13 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:16:35 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 
 t_buffer		g_buffer;
 
-int				max(int a, int b)
+static int		max(int a, int b)
 {
 	if (a > b)
 		return (a);
 	return (b);
+}
+
+int				get_screenwidth(void)
+{
+	return (g_buffer.out.cols);
 }
 
 /*
@@ -145,7 +150,7 @@ static  void	redisplay(t_buffer newbuf, int resize)
 		while (++j < cols(&newbuf, i))
 		{
 			if (str_get(newbuf.b, pos))
-				ft_putchar(str_get(newbuf.b, pos));
+				ft_fdprintf(STDIN, "%c", (str_get(newbuf.b, pos)));
 			else
 				ft_putchar(' ');
 			if (pos % newbuf.out.cols == newbuf.out.cols - 1)

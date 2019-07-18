@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:28:08 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/06 18:50:26 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/15 17:19:19 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ extern t_buffer	g_buffer;
 void			init_linebuf(t_line line);
 void			clear_linebuf(void);
 void			update_line(t_line *line);
+int				get_screenwidth(void);
 
 #endif
 /* line -> buffer, buf -> b */
