@@ -6,11 +6,13 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:29:42 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 06:46:33 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/20 08:48:09 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+t_line *g_line;
 
 static void	sig_init(void)
 {
@@ -30,6 +32,7 @@ static void init_line(t_line *line, char *prompt, t_history **history)
 	temp_str = str_xcreate(0);
 	history_push(line->history, temp_str);
 	line->str = (t_string *)line->history->item->content;
+	g_line = line;
 	line->prompt = str_xcopy(prompt);
 }
 
@@ -40,6 +43,7 @@ static void	clear_line(t_line *line, int exit, t_history **history)
 	history_clear(line->history);
 	*history = line->history_orig;
 	str_delete(&line->prompt);
+	str_delete(&line->kill_buffer);
 	if (exit)
 	{
 		ft_printf("exit");

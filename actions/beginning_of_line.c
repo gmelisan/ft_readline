@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_xfuncs2.c                                      :+:      :+:    :+:   */
+/*   beginning_of_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:24:15 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:37:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:18:36 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 07:18:49 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str_xfuncs.h"
+#include "actions.h"
 
-void			str_xaddback(t_string *str, char *s, size_t size)
+void	beginning_of_line(t_line *line)
 {
-	if (!(str_addback(str, s, size)))
-		die();
+	line->cpos = 0;
 }
-	
-void			str_xaddfront(t_string *str, char *s, size_t size)
-{
-	if (!(str_addfront(str, s, size)))
-		die();
-}
-	
-void			str_xinsert(t_string *str, int to, char *s, size_t size)
-{
-	if (!(str_insert(str, to, s, size)))
-		die();
-}
-

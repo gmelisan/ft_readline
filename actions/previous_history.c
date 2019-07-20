@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_xfuncs2.c                                      :+:      :+:    :+:   */
+/*   previous_history.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:24:15 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:37:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:14:30 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 07:14:47 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str_xfuncs.h"
+#include "actions.h"
 
-void			str_xaddback(t_string *str, char *s, size_t size)
+void	previous_history(t_line *line)
 {
-	if (!(str_addback(str, s, size)))
-		die();
+	if (line->history->item->prev)
+	{
+		line->history->item = line->history->item->prev;
+		line->str = (t_string *)line->history->item->content;
+		line->cpos = line->str->len;
+	}
 }
-	
-void			str_xaddfront(t_string *str, char *s, size_t size)
-{
-	if (!(str_addfront(str, s, size)))
-		die();
-}
-	
-void			str_xinsert(t_string *str, int to, char *s, size_t size)
-{
-	if (!(str_insert(str, to, s, size)))
-		die();
-}
-

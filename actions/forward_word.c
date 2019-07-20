@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_xfuncs2.c                                      :+:      :+:    :+:   */
+/*   forward_word.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:24:15 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:37:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:17:13 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 07:18:19 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str_xfuncs.h"
+#include "actions.h"
 
-void			str_xaddback(t_string *str, char *s, size_t size)
+static int	is_delim(char c)
 {
-	if (!(str_addback(str, s, size)))
-		die();
-}
-	
-void			str_xaddfront(t_string *str, char *s, size_t size)
-{
-	if (!(str_addfront(str, s, size)))
-		die();
-}
-	
-void			str_xinsert(t_string *str, int to, char *s, size_t size)
-{
-	if (!(str_insert(str, to, s, size)))
-		die();
+	if (ft_isalnum(c))
+		return (0);
+	return (1);
 }
 
+void		forward_word(t_line *line)
+{
+	int i;
+
+	i = line->cpos;
+	while (is_delim(str_get(*line->str, i)) && i <= (int)line->str->len)
+		i++;
+	while (!is_delim(str_get(*line->str, i)) && i <= (int)line->str->len)
+		i++;
+	if (i > (int)line->str->len)
+		i = line->str->len;
+	line->cpos = i;
+}

@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:58:51 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/17 00:56:09 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/20 09:10:27 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	init_bindings1(t_vector *key_bindings)
 	bind(key_bindings, ARROW_RIGHT, forward_char);
 	bind(key_bindings, ARROW_UP, previous_history);
 	bind(key_bindings, ARROW_DOWN, next_history);
+	bind(key_bindings, CTRL_P, previous_history);
+	bind(key_bindings, CTRL_N, next_history);
 	bind(key_bindings, CTRL_LEFT, backward_word);
 	bind(key_bindings, CTRL_RIGHT, forward_word);
 	bind(key_bindings, CTRL_UP, backward_line);
@@ -42,6 +44,10 @@ static void init_bindings2(t_vector *key_bindings)
 	bind(key_bindings, CTRL_L, clear_screen);
 	bind(key_bindings, CTRL_T, transpose_chars);
 	/* bind(key_bindings, ALT_T, transpose_words); */
+	bind(key_bindings, CTRL_K, kill_line);
+	bind(key_bindings, CTRL_U, unix_line_discard);
+	/* bind(key_bindings, CTRL_W, unix_word_rubout); */
+	bind(key_bindings, CTRL_Y, yank);
 }
 
 void		init_bindings(t_vector *key_bindings)

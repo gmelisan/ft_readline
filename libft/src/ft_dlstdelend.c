@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 05:10:38 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 05:17:29 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/20 09:05:51 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_dlstdelend(t_dlist **alst, void (*del)(void *, size_t))
 	{
 		*alst = (*alst)->prev;
 		ft_dlstdelone(&(*alst)->next, del);
-		(*alst)->nextxb = NULL;
+		(*alst)->next = NULL;
 	}
 	else
 		ft_dlstdel(alst, del);

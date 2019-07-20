@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_xfuncs2.c                                      :+:      :+:    :+:   */
+/*   unix_line_discard.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:24:15 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:37:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:27:12 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 09:17:23 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str_xfuncs.h"
+#include "actions.h"
 
-void			str_xaddback(t_string *str, char *s, size_t size)
+void	unix_line_discard(t_line *line)
 {
-	if (!(str_addback(str, s, size)))
-		die();
+	if (line->str->len > 0)
+	{
+		str_delete(&line->kill_buffer);
+		line->kill_buffer = str_xsubstring(*line->str, 0, line->cpos);
+		ft_memmove(line->str->s, line->str->s + line->cpos,
+				   line->str->len - line->cpos);
+		ft_bzero(line->str->s + line->str->len - line->cpos, line->cpos);
+		line->str->len -= line->cpos;
+		line->cpos = 0;
+	}
 }
-	
-void			str_xaddfront(t_string *str, char *s, size_t size)
-{
-	if (!(str_addfront(str, s, size)))
-		die();
-}
-	
-void			str_xinsert(t_string *str, int to, char *s, size_t size)
-{
-	if (!(str_insert(str, to, s, size)))
-		die();
-}
-

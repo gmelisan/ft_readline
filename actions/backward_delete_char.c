@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_xfuncs2.c                                      :+:      :+:    :+:   */
+/*   backward_delete_char.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:24:15 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:37:58 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:10:58 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 07:11:12 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str_xfuncs.h"
+#include "actions.h"
 
-void			str_xaddback(t_string *str, char *s, size_t size)
+void	backward_delete_char(t_line *line)
 {
-	if (!(str_addback(str, s, size)))
-		die();
+	if (line->cpos > 0)
+	{
+		line->cpos--;
+		str_remove(line->str, line->cpos, 1);
+	}
 }
-	
-void			str_xaddfront(t_string *str, char *s, size_t size)
-{
-	if (!(str_addfront(str, s, size)))
-		die();
-}
-	
-void			str_xinsert(t_string *str, int to, char *s, size_t size)
-{
-	if (!(str_insert(str, to, s, size)))
-		die();
-}
-

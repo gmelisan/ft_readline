@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_cursor3.c                                     :+:      :+:    :+:   */
+/*   unix_word_rubout.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 19:38:41 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 04:28:42 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:27:39 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 07:28:05 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "actions.h"
 
-void	beginning_of_line(t_line *line)
+void	unix_word_rubout(t_line *line)
 {
-	line->cpos = 0;
-}
-
-void	end_of_line(t_line *line)
-{
-	line->cpos = line->str->len;
-}
-
-void	clear_screen(t_line *line)
-{
-	if (line)
-		term_putstr("cl");
+	
 }

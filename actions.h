@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 19:51:08 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/17 00:54:45 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/20 08:08:48 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ void	overwrite_mode(t_line *line);
 
 void	previous_history(t_line *line);
 void	next_history(t_line *line);
+void	kill_line(t_line *line);
+void	unix_line_discard(t_line *line);
+void	unix_word_rubout(t_line *line);
+void	yank(t_line *line);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/05 21:52:47 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/20 04:24:13 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/20 08:08:25 by gmelisan         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,9 +23,14 @@ xmalloc.o str_xfuncs1.o str_xfuncs2.o bindings.o input_loop.o \
 vec_xfuncs.o init_bindings.o history.o
 
 OBJ += $(addprefix ./actions/, \
-move_cursor1.o move_cursor2.o move_cursor3.o \
-change_text1.o change_text2.o \
-history.o \
+self_insert.o backward_delete_char.o delete_char.o \
+forward_char.o backward_char.o forward_word.o backward_word.o \
+forward_line.o backward_line.o \
+clear_screen.o overwrite_mode.o\
+beginning_of_line.o end_of_line.o \
+transpose_chars.o transpose_words.o \
+previous_history.o next_history.o \
+kill_line.o unix_line_discard.o unix_word_rubout.o yank.o \
 )
 
 all: $(NAME)

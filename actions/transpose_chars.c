@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   change_text2.c                                     :+:      :+:    :+:   */
+/*   transpose_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/15 19:43:09 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 04:26:39 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/20 07:12:44 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/20 07:13:12 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	swap(char *a, char *b)
 	*b = tmp;
 }
 
-void	transpose_chars(t_line *line)
+void		transpose_chars(t_line *line)
 {
 	int		pos;
 
@@ -33,11 +33,4 @@ void	transpose_chars(t_line *line)
 	else
 		swap(&line->str->s[pos - 1], &line->str->s[pos]);
 	forward_char(line);
-}
-
-/* TODO: meta/alt bindings */
-void	transpose_words(t_line *line)
-{
-	if (line)
-		return ;
 }
