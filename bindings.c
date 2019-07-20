@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 19:43:02 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 20:04:11 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/20 04:37:47 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,12 @@ static t_string get_sequence(int key)
 
 void	bind(t_vector *key_bindings, int key, f_action action)
 {
-	t_binding *new;
+	t_binding new;
 
-	new = ft_xmemalloc(sizeof(*new));
-	new->key = key;
-	new->action = action;
-	new->sequence = get_sequence(key);
-	vec_xaddback(key_bindings, (void *)new); /* todo: vec_xaddback */
+	new.key = key;
+	new.action = action;
+	new.sequence = get_sequence(key);
+	vec_xaddback(key_bindings, &new); /* todo: vec_xaddback */
 	/* todo: check for duplicates */
 }
 

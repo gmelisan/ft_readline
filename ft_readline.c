@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:29:42 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 19:01:36 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/20 06:46:33 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static void	clear_line(t_line *line, int exit, t_history **history)
 {
 	line->result = ft_strdup(line->str->s);
 	history_save(line->history_orig, line->str);
-	*history = line->history_orig;
 	history_clear(line->history);
+	*history = line->history_orig;
 	str_delete(&line->prompt);
 	if (exit)
 	{
