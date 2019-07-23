@@ -1,0 +1,10 @@
+readline
+*.o
+log
+.vscode/
+bufout
+test
+test.c
+README
+.42sh.history
+/libft/libft.a
