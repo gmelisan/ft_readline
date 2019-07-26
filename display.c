@@ -6,12 +6,13 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 04:47:10 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 19:12:33 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "display.h"
 #include "terminal.h"
+#include "escseqs.h"
 
 t_buffer		g_buffer;
 
@@ -24,7 +25,7 @@ static int		max(int a, int b)
 
 int				get_screenwidth(void)
 {
-	return (g_buffer.out.cols);
+	return (g_buffer.out_cols);
 }
 
 /*
@@ -37,8 +38,8 @@ static void		move_cur_start(void)
 	int ccol;
 	int i;
 
-	crow = g_buffer.cpos / g_buffer.out.cols;
-	ccol = g_buffer.cpos % g_buffer.out.cols;
+	crow = g_buffer.cpos / g_buffer.out_cols;
+	ccol = g_buffer.cpos % g_buffer.out_cols;
 	i = -1;
 	while (++i < crow)
 		term_putstr("up");
@@ -100,13 +101,6 @@ static t_string	*build_bufout(t_string str, int width)
 	return (res);
 }
 
-static t_string *get_outstr(t_buffer *buf, int i)
-{
-	if (i < buf->out.rows && i >= 0)
-		return (&(buf->out.b[i]));
-	return (NULL);
-}
-
 /*
 ** Count how many times we need to step in inner loop of redisplay.
 ** We need this checks when resizing.
@@ -122,11 +116,23 @@ static int		cols(t_buffer *newbuf, int i)
 	int			newlen;
 	int			oldlen;
 
-	old = get_outstr(newbuf, i);
-	new = get_outstr(&g_buffer, i);
+	old = (i < newbuf->out_rows && i >= 0 ? &newbuf->out[i] : NULL);
+	new = (i < g_buffer.out_rows && i >= 0 ? &g_buffer.out[i] : NULL);
 	oldlen = old ? old->len : 0;
 	newlen = new ? new->len : 0;
 	return (max(oldlen, newlen));
+}
+
+static void		print(t_buffer *newbuf, int pos)
+{
+	t_string	*tmp;
+
+	if ((tmp = vec_get(newbuf->escseqs, pos)) && tmp->s)
+		ft_fdprintf(STDOUT, "%s", tmp->s);
+	if (str_get(newbuf->b, pos))
+		ft_fdprintf(STDOUT, "%c", str_get(newbuf->b, pos));
+	else
+		ft_fdprintf(STDOUT, " ");
 }
 
 /*
@@ -144,24 +150,21 @@ static  void	redisplay(t_buffer *newbuf, int resize)
 	move_cur_start();
 	i = -1;
 	pos = 0;
-	while (++i < max(newbuf->out.rows, g_buffer.out.rows))
+	while (++i < max(newbuf->out_rows, g_buffer.out_rows))
 	{
 		j = -1;
 		while (++j < cols(newbuf, i))
 		{
-			if (str_get(newbuf->b, pos))
-				ft_fdprintf(STDIN, "%c", (str_get(newbuf->b, pos)));
-			else
-				ft_putchar(' ');
-			if (pos % newbuf->out.cols == newbuf->out.cols - 1)
-				move_cur_right(pos, newbuf->out.cols);
+			print(newbuf, pos);
+			if (pos % newbuf->out_cols == newbuf->out_cols - 1)
+				move_cur_right(pos, newbuf->out_cols);
 			pos++;
 		}
 	}
 	if (resize)
 		term_putstr("ce");
 	while (pos != newbuf->cpos)
-		move_cur_left(pos--, newbuf->out.cols);
+		move_cur_left(pos--, newbuf->out_cols);
 }
 
 void	init_linebuf(t_line *line)
@@ -169,18 +172,33 @@ void	init_linebuf(t_line *line)
 	struct winsize	ws;
 
 	ioctl(STDOUT, TIOCGWINSZ, &ws);
-	g_buffer.b = str_xduplicate(*line->str);
-	str_xaddfront(&g_buffer.b, line->prompt.s, line->prompt.len);
-	g_buffer.cpos = line->prompt.len + line->cpos;
-	g_buffer.out.rows = g_buffer.b.len / ws.ws_col + 1;
-	g_buffer.out.cols = ws.ws_col;
-	g_buffer.out.b = build_bufout(g_buffer.b, ws.ws_col);
+	g_buffer.b = str_xduplicate(line->prompt);
+	pull_escseqs(&g_buffer.escseqs, &g_buffer.b);
+	g_buffer.prompt_len = g_buffer.b.len;
+	g_buffer.cpos = g_buffer.prompt_len;
+	g_buffer.out_rows = g_buffer.b.len / ws.ws_col + 1;
+	g_buffer.out_cols = ws.ws_col;
+	g_buffer.out = build_bufout(g_buffer.b, ws.ws_col);
+}
+
+static void	del(void *str)
+{
+	str_delete(str);
+}
+
+static void *dupl(void *p)
+{
+	static	t_string str;
+
+	str = str_xduplicate(*((t_string *)p));
+	return (&str);
 }
 
 void	clear_linebuf(void)
 {
-	str_delarr(&g_buffer.out.b);
+	str_delarr(&g_buffer.out);
 	str_delete(&g_buffer.b);
+	vec_delete(&g_buffer.escseqs, del);
 	ft_bzero(&g_buffer, sizeof(t_buffer));
 }
 
@@ -203,13 +221,18 @@ void	update_line(t_line *line)
 	{
 		newbuf.b = str_xduplicate(*line->str);
 		str_xaddfront(&newbuf.b, line->prompt.s, line->prompt.len);
+		pull_escseqs(&newbuf.escseqs, &newbuf.b);
 	}
 	else
+	{
 		newbuf.b = str_xduplicate(g_buffer.b);
-	newbuf.cpos = (line ? line->prompt.len + line->cpos : g_buffer.cpos);
-	newbuf.out.rows = newbuf.b.len / ws.ws_col + 1;
-	newbuf.out.cols = ws.ws_col;
-	newbuf.out.b = build_bufout(newbuf.b, ws.ws_col);
+		newbuf.escseqs = vec_xduplicate(g_buffer.escseqs, dupl);
+	}
+	newbuf.cpos = (line ? g_buffer.prompt_len + line->cpos : g_buffer.cpos);
+	newbuf.prompt_len = g_buffer.prompt_len;
+	newbuf.out_rows = newbuf.b.len / ws.ws_col + 1;
+	newbuf.out_cols = ws.ws_col;
+	newbuf.out = build_bufout(newbuf.b, ws.ws_col);
 	redisplay(&newbuf, line ? 0 : 1);
 	clear_linebuf();
 	ft_memcpy(&g_buffer, &newbuf, sizeof(t_buffer));

@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 07:27:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:28:05 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 17:10:01 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	unix_word_rubout(t_line *line)
 {
-	
+	if (line)
+		return ;
 }

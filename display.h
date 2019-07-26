@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:28:08 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 04:34:36 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 16:41:05 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 
 # include "ft_readline.h"
 
-typedef struct	s_out
-{
-	t_string	*b;
-	int			rows;
-	int			cols;
-}				t_out;
-
 typedef struct	s_buffer
 {
 	t_string	b;
+	t_vector	escseqs;
 	int			cpos;
-	t_out		out;
+	int			prompt_len;
+	t_string	*out;
+	int			out_rows;
+	int			out_cols;
 }				t_buffer;
 
 extern t_buffer	g_buffer;
