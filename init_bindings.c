@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:58:51 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/26 21:37:01 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:53:50 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init_bindings1(t_vector *key_bindings)
 {
 	bind(key_bindings, ARROW_LEFT, backward_char);
+	bind(key_bindings, ARROW_RIGHT, forward_char);
 	bind(key_bindings, ARROW_UP, previous_history);
 	bind(key_bindings, ARROW_DOWN, next_history);
 	bind(key_bindings, CTRL_P, previous_history);

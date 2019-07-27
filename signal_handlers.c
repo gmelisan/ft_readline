@@ -6,19 +6,26 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:57:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 08:52:27 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/27 18:36:13 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signal_handlers.h"
+#include "execinfo.h"
 
 void	sigh_sigsegv(int sig)
 {
+	void	*bt_buffer[BT_BUFSIZE];
+	int		size;
+
 	if (sig == SIGSEGV)
 	{
 		term_restore();
 		ft_putstr("Segmentation fault.\n");
 		ft_fdprintf(g_logfd, "Exit (Segmentation fault)\n");
+		size = backtrace(bt_buffer, BT_BUFSIZE);
+		ft_fdprintf(g_logfd, "Backtrace:\n");
+		backtrace_symbols_fd(bt_buffer, size, g_logfd);
 		close(g_logfd);
 		exit(1);
 	}
