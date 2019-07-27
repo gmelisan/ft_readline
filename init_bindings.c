@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:58:51 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 09:10:27 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 21:37:01 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	init_bindings1(t_vector *key_bindings)
 {
 	bind(key_bindings, ARROW_LEFT, backward_char);
-	bind(key_bindings, ARROW_RIGHT, forward_char);
 	bind(key_bindings, ARROW_UP, previous_history);
 	bind(key_bindings, ARROW_DOWN, next_history);
 	bind(key_bindings, CTRL_P, previous_history);
@@ -37,17 +36,18 @@ static void	init_bindings1(t_vector *key_bindings)
 	bind(key_bindings, CTRL_E, end_of_line);
 	/* bind(key_bindings, TAB, self_insert); */
 	bind(key_bindings, ENTER, self_insert);
+	bind(key_bindings, CTRL_L, clear_screen);
+	bind(key_bindings, CTRL_T, transpose_chars);
+	/* bind(key_bindings, ALT_T, transpose_words); */
 }
 
 static void init_bindings2(t_vector *key_bindings)
 {
-	bind(key_bindings, CTRL_L, clear_screen);
-	bind(key_bindings, CTRL_T, transpose_chars);
-	/* bind(key_bindings, ALT_T, transpose_words); */
 	bind(key_bindings, CTRL_K, kill_line);
 	bind(key_bindings, CTRL_U, unix_line_discard);
-	/* bind(key_bindings, CTRL_W, unix_word_rubout); */
+	bind(key_bindings, CTRL_W, unix_word_rubout);
 	bind(key_bindings, CTRL_Y, yank);
+	bind(key_bindings, CTRL_R, reverse_search_history);
 }
 
 void		init_bindings(t_vector *key_bindings)

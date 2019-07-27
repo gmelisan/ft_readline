@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:40:53 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/18 04:38:52 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 22:23:01 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void		perform_action(t_line *line, t_vector *key_bindings)
 	{
 		(*b->action)(line);
 		update_line(line);
+		str_delete(&line->search_string);
 	}
 }
 

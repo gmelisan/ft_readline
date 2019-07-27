@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 16:10:45 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:34:12 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 21:58:32 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_line
 	int			cpos;			/* relative to `str' */
 	char		keybuf[KEYBUF_SIZE];
 	int			overwrite_mode;
+	t_string	search_string;
 	t_string	kill_buffer;
 	t_history	*history;
 	t_history	*history_orig;

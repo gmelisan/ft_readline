@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:28:08 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/26 16:41:05 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/26 22:35:12 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef struct	s_buffer
 {
+	t_string	original;
 	t_string	b;
 	t_vector	escseqs;
 	int			cpos;

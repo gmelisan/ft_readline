@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/26 19:12:33 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/27 01:04:16 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void	init_linebuf(t_line *line)
 
 	ioctl(STDOUT, TIOCGWINSZ, &ws);
 	g_buffer.b = str_xduplicate(line->prompt);
+	g_buffer.original = str_xduplicate(g_buffer.b);
 	pull_escseqs(&g_buffer.escseqs, &g_buffer.b);
 	g_buffer.prompt_len = g_buffer.b.len;
 	g_buffer.cpos = g_buffer.prompt_len;
@@ -202,6 +203,35 @@ void	clear_linebuf(void)
 	ft_bzero(&g_buffer, sizeof(t_buffer));
 }
 
+void	convert_nl(t_string *str, int width)
+{
+	int			i;
+	int			j;
+	t_string	escseq;
+	int			es_lens;
+
+	es_lens = 0;
+	i = -1;
+	while (str_get(*str, ++i))
+	{
+		if (str_get(*str, i) == ESC)
+		{
+			escseq = get_escseq(*str, &i);
+			es_lens += escseq.len;
+			str_delete(&escseq);
+			i--;
+		}
+		else if (str_get(*str, i) == '\n')
+		{
+			str->s[i] = ' ';
+			j = 0;
+			while (++j < (width - (i % width) + es_lens))
+				str_xinsert(str, i, " ", 1);
+			es_lens = 0;
+		}
+	}
+}
+
 /*
 ** Idea as in the original Readline lib.
 ** Two buffers: 
@@ -211,7 +241,7 @@ void	clear_linebuf(void)
 ** to `g_buffer'.
 */
 
-void	update_line(t_line *line)
+void	_update_line(t_line *line)
 {
 	t_buffer		newbuf;
 	struct winsize	ws;
@@ -221,13 +251,45 @@ void	update_line(t_line *line)
 	{
 		newbuf.b = str_xduplicate(*line->str);
 		str_xaddfront(&newbuf.b, line->prompt.s, line->prompt.len);
+		convert_nl(&newbuf.b, ws.ws_col);
 		pull_escseqs(&newbuf.escseqs, &newbuf.b);
 	}
 	else
 	{
 		newbuf.b = str_xduplicate(g_buffer.b);
+		convert_nl(&newbuf.b, ws.ws_col);
 		newbuf.escseqs = vec_xduplicate(g_buffer.escseqs, dupl);
 	}
+	
+	newbuf.cpos = (line ? g_buffer.prompt_len + line->cpos : g_buffer.cpos);
+	newbuf.prompt_len = g_buffer.prompt_len;
+	newbuf.out_rows = newbuf.b.len / ws.ws_col + 1;
+	newbuf.out_cols = ws.ws_col;
+	newbuf.out = build_bufout(newbuf.b, ws.ws_col);
+	redisplay(&newbuf, line ? 0 : 1);
+	clear_linebuf();
+	ft_memcpy(&g_buffer, &newbuf, sizeof(t_buffer));
+}
+
+void	update_line(t_line *line)
+{
+	t_buffer		newbuf;
+	struct winsize	ws;
+
+	ioctl(STDOUT, TIOCGWINSZ, &ws);
+	if (line)
+	{
+		newbuf.original = str_xduplicate(*line->str);
+		str_xaddfront(&newbuf.original, line->prompt.s, line->prompt.len);
+		newbuf.b = str_xduplicate(newbuf.original);
+	}
+	else
+	{
+		newbuf.b = str_xduplicate(g_buffer.original);
+		newbuf.original = str_xduplicate(g_buffer.original);
+	}
+	convert_nl(&newbuf.b, ws.ws_col);
+	pull_escseqs(&newbuf.escseqs, &newbuf.b);
 	newbuf.cpos = (line ? g_buffer.prompt_len + line->cpos : g_buffer.cpos);
 	newbuf.prompt_len = g_buffer.prompt_len;
 	newbuf.out_rows = newbuf.b.len / ws.ws_col + 1;

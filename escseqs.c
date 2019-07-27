@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 23:45:47 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/26 18:08:55 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/27 00:11:53 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** ex.: "\E[m", "\E[0m", "\E[0;0m", "\E[4m", "\E[40;1m"
 */
 
-static t_string	get_escseq(t_string str, int *i)
+t_string	get_escseq(t_string str, int *i)
 {
 	t_string	es;
 	int			j;
@@ -66,6 +66,46 @@ void	pull_escseqs(t_vector *vec, t_string *str)
 	{
 		if (c == ESC)
 			tmp = get_escseq(*str, &i);
+		else
+		{
+			vec_xaddback(vec, &tmp);
+			str_xaddback(&new, &c, 1);
+			str_zero(&tmp);
+			i++;
+		}
+	}
+	free(str->s);
+	*str = new;
+}
+
+void	_pull_escseqs(t_vector *vec, t_string *str, int width)
+{
+	t_string	new;
+	t_string	tmp;
+	char		c;
+	int			i;
+	int			j;
+
+	*vec = vec_xcreate(0, sizeof(t_string));
+	str_zero(&tmp);
+	new = str_create(0);
+	i = 0;
+	while ((c = str_get(*str, i)))
+	{
+		if (c == ESC)
+			tmp = get_escseq(*str, &i);
+		else if (c == '\n')
+		{
+			j = -1;
+			c = ' ';
+			while (++j < (width - (i % width)))
+			{
+				vec_xaddback(vec, &tmp);
+				str_xaddback(&new, &c, 1);
+				str_zero(&tmp);
+			}
+			i++;
+		}
 		else
 		{
 			vec_xaddback(vec, &tmp);
