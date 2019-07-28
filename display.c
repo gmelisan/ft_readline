@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/27 21:47:39 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/28 16:21:39 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,14 +187,6 @@ static void	del(void *str)
 	str_delete(str);
 }
 
-static void *dupl(void *p)
-{
-	static	t_string str;
-
-	str = str_xduplicate(*((t_string *)p));
-	return (&str);
-}
-
 void	clear_linebuf(void)
 {
 	str_delarr(&g_buffer.out);
@@ -228,35 +220,6 @@ void	convert_nl(t_buffer *buf, int width)
 		}
 	}
 }
-
-/* void	_convert_nl(t_string *str, int width) */
-/* { */
-/* 	int			i; */
-/* 	int			j; */
-/* 	t_string	escseq; */
-/* 	int			es_lens; */
-
-/* 	es_lens = 0; */
-/* 	i = -1; */
-/* 	while (str_get(*str, ++i)) */
-/* 	{ */
-/* 		if (str_get(*str, i) == ESC) */
-/* 		{ */
-/* 			escseq = get_escseq(*str, &i); */
-/* 			es_lens += escseq.len; */
-/* 			str_delete(&escseq); */
-/* 			i--; */
-/* 		} */
-/* 		else if (str_get(*str, i) == '\n') */
-/* 		{ */
-/* 			str->s[i] = ' '; */
-/* 			j = 0; */
-/* 			while (++j < (width - (i % width) + es_lens)) */
-/* 				str_xinsert(str, i, " ", 1); */
-/* 			es_lens = 0; */
-/* 		} */
-/* 	} */
-/* } */
 
 /*
 ** Idea as in the original Readline lib.

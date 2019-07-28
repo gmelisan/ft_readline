@@ -6,7 +6,7 @@
 #    By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/05 21:52:47 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/26 22:23:47 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/28 16:20:44 by gmelisan         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -42,13 +42,17 @@ $(NAME): $(LIBFT)/libft.a $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) -I. -I$(LIBFT)/include -c -o $@ $<
 
+$(LIBFT)/libft.a:
+	@make -C $(LIBFT)
+
 $(OBJ): $(LIBFT)/include/libft.h *.h
 
 clean:
 	@rm -f $(OBJ)
+	@make -C $(LIBFT) clean
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f $(LIBFT)/libft.a
 
 re: fclean all
-
