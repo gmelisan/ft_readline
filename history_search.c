@@ -6,7 +6,7 @@
 /*   By: gmelisan <gmelisan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 16:51:21 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/28 20:06:49 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/29 04:40:09 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	hs_prepare_line(t_line *line)
 	str_xaddback(&out_search_string, "_", 1);
 	str_xaddback(line->str, out_search_string.s,
 											ft_strlen(out_search_string.s));
+	str_delete(&out_search_string);
 }
 
 void	hs_clear(t_line *line)

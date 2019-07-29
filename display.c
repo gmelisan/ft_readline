@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/28 16:21:39 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/29 04:49:58 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ void	clear_linebuf(void)
 	str_delarr(&g_buffer.out);
 	str_delete(&g_buffer.b);
 	vec_delete(&g_buffer.escseqs, del);
+	str_delete(&g_buffer.original);
 	ft_bzero(&g_buffer, sizeof(t_buffer));
 }
 
