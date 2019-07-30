@@ -6,7 +6,7 @@
 /*   By: gmelisan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 13:22:04 by gmelisan          #+#    #+#             */
-/*   Updated: 2018/11/22 13:52:01 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 05:58:52 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strstr(const char *haystack, const char *needle)
 	size_t i;
 	size_t j;
 
+	if (!haystack || !needle)
+		return (NULL);
 	if (*needle == '\0')
 		return ((char *)haystack);
 	i = 0;

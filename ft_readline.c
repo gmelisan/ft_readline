@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:29:42 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/29 04:35:34 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 02:46:31 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	clear_line(t_line *line, int exit, t_history **history)
 	*history = line->history_orig;
 	str_delete(&line->prompt);
 	str_delete(&line->kill_buffer);
-	str_delete(&line->search_string);
+	str_delete(&line->hs.query);
 	if (exit)
 	{
 		ft_printf("exit");

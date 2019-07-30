@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:37:14 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/28 20:05:00 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 05:48:34 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	reverse_search_history(t_line *line)
 {
-	line->search_string = str_xcreate(0);
-	line->search_mode = 1;
+	line->hs.query = str_xcreate(0);
+	line->hs_mode = 1;
+	if (!line->hs.start)
+	{
+		line->hs.start = line->history->item;
+		line->hs.original_cpos = line->cpos;
+	}
 }

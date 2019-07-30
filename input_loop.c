@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:40:53 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/28 20:23:17 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 02:57:32 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ static void		perform_action(t_line *line, t_vector *key_bindings)
 		if (b->action != &self_insert
 			&& b->action != &backward_delete_char
 			&& b->action != &reverse_search_history)
-			line->search_mode = 0;
-		if (line->search_mode)
+			line->hs_mode = 0;
+		if (line->hs_mode)
 			hs_prepare_line(line);
 		else
-			str_delete(&line->search_string);
+			str_delete(&line->hs.query);
 		update_line(line);
-		hs_clear(line);
+		if (line->hs_mode)
+			hs_clear(line);
 	}
 }
 

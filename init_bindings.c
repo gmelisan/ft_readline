@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:58:51 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/27 18:53:50 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 03:25:30 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void init_bindings2(t_vector *key_bindings)
 	bind(key_bindings, CTRL_W, unix_word_rubout);
 	bind(key_bindings, CTRL_Y, yank);
 	bind(key_bindings, CTRL_R, reverse_search_history);
+	bind(key_bindings, CTRL_G, reset_history_search);
 }
 
 void		init_bindings(t_vector *key_bindings)

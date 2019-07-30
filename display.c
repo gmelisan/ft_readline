@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 11:13:31 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/29 04:49:58 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:03:29 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ static  void	redisplay(t_buffer *newbuf, int resize)
 		}
 	}
 	if (resize)
-		term_putstr("cd");	/* "ce" for linux. Should be at col 0. Fix later */	
-	while (pos != newbuf->cpos)
+		term_putstr("cd");	/* "ce" for linux. Should be at col 0. TODO fix later */	
+	while (pos > newbuf->cpos)
 		move_cur_left(pos--, newbuf->out_cols);
 }
 
@@ -212,7 +212,7 @@ void	convert_nl(t_buffer *buf, int width)
 		{
 			/* add = count_escseq(buf->escseqs, from, i); */
 			add = (width - (i % width)) - 1;
-			from = i;
+			from = i + 1;
 			shift_escseq(&buf->escseqs, from, add);
 			buf->b.s[i] = ' ';
 			j = 0;

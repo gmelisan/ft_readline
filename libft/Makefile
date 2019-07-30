@@ -6,7 +6,7 @@
 #    By: kemmeric <kemmeric@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 12:48:23 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/18 05:14:11 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/30 06:09:23 by gmelisan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ ft_dlstdelend.o \
 ft_swap.o ft_range.o ft_power.o ft_realloc.o get_next_line.o \
 get_lines.o ft_lstaddback.o ft_strarrdel.o get_lines.o ft_lstsize.o \
 ft_atoi.o ft_itoa.o ft_qsort.o ft_strnjoin.o ft_cntdigits.o \
+ft_strrstr.o \
 ))
 
 OBJ_FTPRINTF = $(sort $(addprefix ./src/ft_printf/, \

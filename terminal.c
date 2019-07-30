@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:37:33 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 16:31:05 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:05:53 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	term_restore(void)
 {
 	tcsetattr(STDIN, TCSANOW, &g_init_tios);
 	term_putstr("ke");
-	ft_printf("\n");
+	ft_putstr_fd("\n", STDOUT);
+	term_putstr("cd");
 }
-
 
 /*
 ** Not in use, for debug only

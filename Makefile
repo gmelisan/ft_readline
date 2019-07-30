@@ -6,7 +6,7 @@
 #    By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/05 21:52:47 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/28 17:19:41 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/30 03:29:33 by gmelisan         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -31,7 +31,7 @@ beginning_of_line.o end_of_line.o \
 transpose_chars.o transpose_words.o \
 previous_history.o next_history.o \
 kill_line.o unix_line_discard.o unix_word_rubout.o yank.o \
-reverse_search_history.o \
+reverse_search_history.o reset_history_search.o\
 )
 
 all: $(NAME)

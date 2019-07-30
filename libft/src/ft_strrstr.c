@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   backward_delete_char.c                             :+:      :+:    :+:   */
+/*   ft_strrstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/20 07:10:58 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/30 05:49:57 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/07/30 05:56:57 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/07/30 06:08:11 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actions.h"
+#include "libft.h"
 
-void	backward_delete_char(t_line *line)
+char	*ft_strrstr(const char *haystack, const char *needle)
 {
-	if (line->hs_mode)
+	size_t	i;
+	size_t	j;
+
+	if (!haystack || !needle)
+		return (NULL);
+	i = ft_strlen(haystack);
+	while (haystack[--i])
 	{
-		if (line->hs.query.len > 0)
+		j = 0;
+		while (haystack[i + j] == needle[j])
 		{
-			line->hs.query.s[line->hs.query.len - 1] = 0;
-			line->hs.query.len -= 1;
-			hs_find(line);
+			j++;
+			if (needle[j] == '\0')
+				return ((char *)&haystack[i]);
 		}
-		
 	}
-	else if (line->cpos > 0)
-	{
-		line->cpos--;
-		str_remove(line->str, line->cpos, 1);		
-	}
+	return (NULL);
 }
