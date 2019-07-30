@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:57:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/30 03:25:41 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/07/30 16:44:53 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void	sigh_sigint(int sig)
 	
 	if (sig == SIGINT)
 	{
-		ft_putstr("^C\n");
-		str_delete(g_line->str);
-		*g_line->str = str_xcreate(0);
-		g_line->hs_mode = 0;
-		g_line->cpos = 0;
+		ft_putstr("^C");
+		/* str_delete(g_line->str); */
+		/* *g_line->str = str_xcreate(0); */
+		/* g_line->hs_mode = 0; */
+		/* g_line->cpos = 0; */
+		reset_line(g_line);
 		update_line(g_line);
 		ft_fdprintf(g_logfd, "[CTRL+C]\n");
 	}

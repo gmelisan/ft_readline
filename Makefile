@@ -6,7 +6,7 @@
 #    By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/05 21:52:47 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/30 03:29:33 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/07/30 16:45:26 by gmelisan         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,7 @@ NAME = readline
 LIBFT = ./libft
 
 CC = clang
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -g
 
 OBJ = main.o terminal.o ft_readline.o ft_errno.o display.o signal_handlers.o \
@@ -31,7 +31,7 @@ beginning_of_line.o end_of_line.o \
 transpose_chars.o transpose_words.o \
 previous_history.o next_history.o \
 kill_line.o unix_line_discard.o unix_word_rubout.o yank.o \
-reverse_search_history.o reset_history_search.o\
+reverse_search_history.o reset_history_search.o reset_line.o \
 )
 
 all: $(NAME)
