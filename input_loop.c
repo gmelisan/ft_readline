@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:40:53 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/30 02:57:32 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/01 07:00:14 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ static void		loginfo(t_line *line)
 	char c;
 
 	c = line->keybuf[0];
-	ft_fdprintf(g_logfd, "-> (%c) [%d %d %d %d %d %d], str: \"%s\", pos: %d\n",
+	ft_fdprintf(g_logfd, "-> (%c) [%d %d %d %d %d %d], str: \"%s\"(%d), pos: %d\n",
 				ft_isprint(c) ? c : ' ',
 				line->keybuf[0], line->keybuf[1],
 				line->keybuf[2], line->keybuf[3],
 				line->keybuf[4], line->keybuf[5],
-				line->str->s, line->cpos);
+				line->str->s, line->str->len, line->cpos);
 }
 
 int				input_loop(t_line *line, t_vector *key_bindings)

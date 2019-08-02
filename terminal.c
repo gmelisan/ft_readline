@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:37:33 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/30 04:05:53 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:57:15 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void		term_init(void)
 		ft_strcpy(termtype, DEFAULT_TERMTYPE);
 		needfree = 1;
 	}
+	ft_fdprintf(g_logfd, "Terminal type: %s\n", termtype);
 	ret = tgetent(term_buffer, termtype);
 	if (needfree)
 		free(termtype);

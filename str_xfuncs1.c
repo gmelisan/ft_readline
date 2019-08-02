@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 18:14:18 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 07:38:04 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:45:22 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_string		str_xcopy(char *s)
 	t_string str;
 
 	str = str_copy(s);
-	if (!str.s)
+	if (s && !str.s)
 		die();
 	return (str);
 }

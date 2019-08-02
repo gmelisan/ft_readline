@@ -6,35 +6,48 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 19:43:02 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/20 04:37:47 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/02 18:13:43 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bindings.h"
 
-static void del(void *elem)
+static t_string get_sequence2(int key)
 {
-	str_delete(&((t_binding *)elem)->sequence);
-}
+	t_string	str;
+	char		*seq;
 
-void	clear_bindings(t_vector *key_bindings)
-{
-	vec_delete(key_bindings, del);
+	str_zero(&str);
+	if (key == HOME)
+		str = str_xcopy((seq = term_getstr("kh")) ? seq : "");
+	else if (key == END)
+		str = str_xcopy((seq = term_getstr("@7")) ? seq : "");
+	else if (key == DELETE)
+		str = str_xcopy((seq = term_getstr("kD")) ? seq : "");
+	else if (key == INSERT)
+		str = str_xcopy((seq = term_getstr("kI")) ? seq : "");
+	else if (key)
+	{
+		str = str_xcreate(1);
+		str.s[0] = (char)key;
+	}
+	return (str);
 }
 
 static t_string get_sequence(int key)
 {
-	t_string str;
+	t_string	str;
+	char		*seq;
 
 	str_zero(&str);
 	if (key == ARROW_LEFT)
-		str = str_xcopy(term_getstr("kl"));
+		str = str_xcopy((seq = term_getstr("kl")) ? seq : "\033[D");
 	else if (key == ARROW_RIGHT)
-		str = str_xcopy(term_getstr("kr"));
+		str = str_xcopy((seq = term_getstr("kr")) ? seq : "\033[C");
 	else if (key == ARROW_UP)
-		str = str_xcopy(term_getstr("ku"));
+		str = str_xcopy((seq = term_getstr("ku")) ? seq : "\033[A");
 	else if (key == ARROW_DOWN)
-		str = str_xcopy(term_getstr("kd"));
+		str = str_xcopy((seq = term_getstr("kd")) ? seq : "\033[B");
 	else if (key == CTRL_LEFT)
 		str = str_xcopy(CTRL_LEFT_SEQ);
 	else if (key == CTRL_RIGHT)
@@ -43,19 +56,8 @@ static t_string get_sequence(int key)
 		str = str_xcopy(CTRL_UP_SEQ);
 	else if (key == CTRL_DOWN)
 		str = str_xcopy(CTRL_DOWN_SEQ);
-	else if (key == HOME)
-		str = str_xcopy(term_getstr("kh"));
-	else if (key == END)
-		str = str_xcopy(term_getstr("@7"));
-	else if (key == DELETE)
-		str = str_xcopy(term_getstr("kD"));
-	else if (key == INSERT)
-		str = str_xcopy(term_getstr("kI"));
-	else if (key)
-	{
-		str = str_xcreate(1);
-		str.s[0] = (char)key;
-	}					
+	else
+		return (get_sequence2(key));
 	return (str);
 }
 

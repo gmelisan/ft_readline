@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xmalloc.h                                          :+:      :+:    :+:   */
+/*   clear_bindings.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:26:52 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/01 07:06:15 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/08/02 18:06:44 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/08/02 18:09:50 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XMALLOC_H
-# define XMALLOC_H
+#include "bindings.h"
 
-# include "ft_readline.h"
+static void del(void *elem)
+{
+	str_delete(&((t_binding *)elem)->sequence);
+}
 
-void		die(void);
-void		*xmalloc(size_t size);
-void		*ft_xmemalloc(size_t size);
-
-extern int	g_logfd;
-
-#endif
+void	clear_bindings(t_vector *key_bindings)
+{
+	vec_delete(key_bindings, del);
+}

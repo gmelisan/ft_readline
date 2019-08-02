@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:35:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/28 17:35:29 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/02 17:28:54 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # include "history.h"
 # include "history_search.h"
 # include "input_loop.h"
+# include "escseqs.h"
 
 char	*ft_readline(char *prompt, t_history **history);
 

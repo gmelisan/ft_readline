@@ -6,7 +6,7 @@
 #    By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/05 21:52:47 by gmelisan          #+#    #+#              #
-#    Updated: 2019/07/30 16:45:26 by gmelisan         ###   ########.fr        #
+#    Updated: 2019/08/02 18:12:26 by gmelisan         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -18,9 +18,17 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -g
 
-OBJ = main.o terminal.o ft_readline.o ft_errno.o display.o signal_handlers.o \
-xmalloc.o str_xfuncs1.o str_xfuncs2.o bindings.o input_loop.o \
-vec_xfuncs.o init_bindings.o history.o escseqs.o history_search.o
+OBJ = main.o terminal.o ft_readline.o ft_errno.o signal_handlers.o \
+xmalloc.o str_xfuncs1.o str_xfuncs2.o input_loop.o \
+vec_xfuncs.o history.o escseqs.o history_search.o
+
+OBJ += $(addprefix ./display/, \
+update_line.o redisplay.o init_linebuf.o clear_linebuf.o move_cursor.o \
+)
+
+OBJ += $(addprefix ./bindings/, \
+bindings.o init_bindings.o clear_bindings.o \
+)
 
 OBJ += $(addprefix ./actions/, \
 self_insert.o backward_delete_char.o delete_char.o \

@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:51:18 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/26 19:02:27 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:48:52 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ t_vector		vec_xduplicate(t_vector vec, void *(*duplicate)(void *))
 
 void			vec_xaddback(t_vector *vec, void *new)
 {
+	if (!vec)
+		return ;
 	if (!(vec_addback(vec, new)))
 		die();
 }
 
 void			vec_xaddfront(t_vector *vec, void *new)
 {
+	if (!vec)
+		return ;
 	if (!(vec_addfront(vec, new)))
 		die();
 }

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xmalloc.h                                          :+:      :+:    :+:   */
+/*   clear_linebuf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/06 18:26:52 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/01 07:06:15 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/08/02 17:19:51 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/08/02 17:38:57 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XMALLOC_H
-# define XMALLOC_H
+#include "display.h"
 
-# include "ft_readline.h"
+static void	del(void *str)
+{
+	str_delete(str);
+}
 
-void		die(void);
-void		*xmalloc(size_t size);
-void		*ft_xmemalloc(size_t size);
-
-extern int	g_logfd;
-
-#endif
+void	clear_linebuf(void)
+{
+	str_delarr(&g_buffer.out);
+	str_delete(&g_buffer.b);
+	vec_delete(&g_buffer.escseqs, del);
+	str_delete(&g_buffer.original);
+	ft_bzero(&g_buffer, sizeof(t_buffer));
+}
