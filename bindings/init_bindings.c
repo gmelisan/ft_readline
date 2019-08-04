@@ -6,13 +6,13 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 19:58:51 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/01 06:00:49 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/02 23:53:22 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bindings.h"
 
-static void	init_bindings1(t_vector *key_bindings)
+static void	bind_keys1(t_vector *key_bindings)
 {
 	bind(key_bindings, ARROW_LEFT, backward_char);
 	bind(key_bindings, ARROW_RIGHT, forward_char);
@@ -42,7 +42,7 @@ static void	init_bindings1(t_vector *key_bindings)
 	/* bind(key_bindings, ALT_T, transpose_words); */
 }
 
-static void init_bindings2(t_vector *key_bindings)
+static void bind_keys2(t_vector *key_bindings)
 {
 	bind(key_bindings, CTRL_K, kill_line);
 	bind(key_bindings, CTRL_U, unix_line_discard);
@@ -52,14 +52,27 @@ static void init_bindings2(t_vector *key_bindings)
 	bind(key_bindings, CTRL_G, reset_history_search);
 }
 
-void		init_bindings(t_vector *key_bindings)
+void		init_bindings(int vi_mode, t_vector *key_bindings)
+{
+	*key_bindings = vec_xcreate(0, sizeof(t_binding));
+	update_bindings(vi_mode, key_bindings);
+}
+
+
+void		update_bindings(int vi_mode, t_vector *key_bindings)
 {
 	int i;
 
-	*key_bindings = vec_xcreate(0, sizeof(t_binding));
-	init_bindings1(key_bindings);
-	init_bindings2(key_bindings);
-	i = 32;
-	while (ft_isprint(i))
-		bind(key_bindings, i++, self_insert);
+	if (!vi_mode)
+	{
+		bind_keys1(key_bindings);
+		bind_keys2(key_bindings);
+		i = 32;
+		while (ft_isprint(i))
+			bind(key_bindings, i++, self_insert);
+	}
+	else if (vi_mode == VI_INSERT)
+	{
+		vi_bind_keys1(vi_mode, key_bindings);
+	}
 }

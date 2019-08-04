@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handlers.h                                  :+:      :+:    :+:   */
+/*   loginfo.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/05 21:58:25 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/02 23:17:57 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/08/02 23:04:13 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/08/02 23:30:36 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLERS_H
-# define SIGNAL_HANDLERS_H
+#ifndef LOGINFO_H
+# define LOGINFO_H
 
+# include <stdarg.h>
+# include <execinfo.h>
 # include "ft_readline.h"
 
-void	sigh_sigsegv(int sig);
-void	sigh_sigabrt(int sig);
-void	sigh_sigint(int sig);
-void	sigh_sigwinch(int sig);
-void	sigh_sigterm(int sig);
+# define LOGNAME		"./rl_log"
+# define BT_BUFSIZE		32
 
-extern int		g_logfd;
-extern t_line	*g_line;
+void	logopen(void);
+void	logclose(void);
+void	loginfo(char *format, ...);
+void	loginfo_line(t_line *line);
+void	loginfo_backtrace(void);
+
+extern int	g_logfd;
 
 #endif

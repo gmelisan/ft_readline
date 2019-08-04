@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 16:40:53 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/01 07:00:14 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/03 03:44:15 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,12 @@ static int		is_ansiseq(char buf[KEYBUF_SIZE])
 	return (0);
 }
 
-static void		loginfo(t_line *line)
-{
-	char c;
-
-	c = line->keybuf[0];
-	ft_fdprintf(g_logfd, "-> (%c) [%d %d %d %d %d %d], str: \"%s\"(%d), pos: %d\n",
-				ft_isprint(c) ? c : ' ',
-				line->keybuf[0], line->keybuf[1],
-				line->keybuf[2], line->keybuf[3],
-				line->keybuf[4], line->keybuf[5],
-				line->str->s, line->str->len, line->cpos);
-}
-
 int				input_loop(t_line *line, t_vector *key_bindings)
 {
 	int		ret;
 
+	if (line->vi_mode)
+		return (vi_input_loop(line, key_bindings));
 	while ((ret = read(STDIN, line->keybuf, 1) > 0 && *line->keybuf != NL))
 	{
 		if (*line->keybuf == ESC)
@@ -71,10 +60,23 @@ int				input_loop(t_line *line, t_vector *key_bindings)
 		if (*line->keybuf == CTRL_D && line->str->len == 0)
 			return (1);
 		perform_action(line, key_bindings);
-		loginfo(line);
+		loginfo_line(line);
 		ft_bzero(line->keybuf, KEYBUF_SIZE);
 	}
 	if (ret < 0)
 		g_errno = ERROR_READ;
 	return (0);
+}
+
+int				vi_input_loop(t_line *line, t_vector *key_bindings)
+{
+	int		ret;
+
+	while ((ret = read(STDIN, line->keybuf, KEYBUF_SIZE - 1)) &&
+			*line->keybuf != NL)
+	{
+		if (line->keybuf[0] == ESC && line->keybuf[1] == 0)
+			line->vi_mode = VI_COMMAND;
+		
+	}
 }

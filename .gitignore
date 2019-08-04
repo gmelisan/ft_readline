@@ -1,6 +1,6 @@
 readline
 *.o
-log
+rl_log
 .vscode/
 bufout
 test
