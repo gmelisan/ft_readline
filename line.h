@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 16:10:45 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/30 19:07:55 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/04 11:44:38 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct		s_line
 	char			*result;		/* what we return */
 	t_string		prompt;	
 	int				cpos;			/* relative to `str' */
+	int				arg;
+	int				reading_arg;
 	char			keybuf[KEYBUF_SIZE];
 	int				overwrite_mode;
 	int				hs_mode;

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset_line.c                                       :+:      :+:    :+:   */
+/*   vi_input_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmelisan <gmelisan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 16:37:41 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/04 11:52:31 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/08/04 11:54:06 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/08/04 11:57:48 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actions.h"
+#include "ft_readline.h"
 
-void	reset_line(t_line *line)
+int				vi_input_loop(t_line *line, t_vector *key_bindings)
 {
-	while (line->history->item->next)
-		line->history->item = line->history->item->next;
-	line->str = (t_string *)line->history->item->content;
-	str_delete(line->str);
-	*line->str = str_xcreate(0);
-	line->cpos = 0;
-	line->hs_mode = 0;
-	line->reading_arg = 0;
-	line->arg = 1;
-	ft_putstr("\n");
+	int		ret;
+
+	while ((ret = read(STDIN, line->keybuf, KEYBUF_SIZE - 1)) &&
+			*line->keybuf != NL)
+	{
+		if (line->keybuf[0] == ESC && line->keybuf[1] == 0)
+			line->vi_mode = VI_COMMAND;
+		if (!key_bindings)
+			break ;
+		
+	}
+	return (0);
 }

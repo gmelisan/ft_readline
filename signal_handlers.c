@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 21:57:39 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/02 23:30:17 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/04 13:07:48 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,10 @@ void	sigh_sigwinch(int sig)
 				get_screenwidth());
 		update_line(NULL);
 	}
+}
+
+void	sigh_ignore(int sig)
+{
+	if (sig)
+		return ;
 }

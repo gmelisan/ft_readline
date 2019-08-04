@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 16:29:42 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/02 23:45:25 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/04 13:40:53 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	sig_init(void)
 	signal(SIGABRT, sigh_sigabrt);
 	signal(SIGWINCH, sigh_sigwinch);
 	signal(SIGTERM, sigh_sigterm);
+	/* signal(SIGTSTP, sigh_ignore); */
 }
 
 static void init_line(t_line *line, t_rlargs args)
@@ -37,6 +38,7 @@ static void init_line(t_line *line, t_rlargs args)
 	g_line = line;
 	line->prompt = str_xcopy(args.prompt);
 	line->vi_mode = args.vi_mode;
+	line->arg = 1;
 }
 
 static void	clear_line(t_line *line, int exit, t_history **history)

@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 15:55:20 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/30 03:57:19 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/04 10:38:38 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define KEYS_H
 
 # define KEY_OFFSET		27000
+# define META			1000
+
+/*
+** Meta chars in range 1000-1127.
+** Ex.: 1003 = M-C.
+*/
 
 enum e_key
 {

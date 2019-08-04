@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_bindings.c                                   :+:      :+:    :+:   */
+/*   vi_bind_keys.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
+/*   By: gmelisan <gmelisan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/02 18:06:44 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/02 18:09:50 by gmelisan         ###   ########.fr       */
+/*   Created: 2019/08/04 10:12:55 by gmelisan          #+#    #+#             */
+/*   Updated: 2019/08/04 10:13:31 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bindings.h"
 
-static void del(void *elem)
+void		vi_bind_keys(int vi_mode, t_vector *key_bindings)
 {
-	str_delete(&((t_binding *)elem)->sequence);
-}
-
-void	clear_bindings(t_vector *key_bindings)
-{
-	vec_delete(key_bindings, del);
+	if (vi_mode)
+		return ;
+	if (key_bindings)
+		return ;
 }

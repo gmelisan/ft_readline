@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 19:34:02 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/07/15 16:43:57 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/04 11:57:48 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@
 # include "ft_readline.h"
 # include "line.h"
 
-typedef void (*f_action)(t_line *line);
+typedef void (*t_action)(t_line *line);
 
 typedef struct	s_binding
 {
 	enum e_key	key;
 	t_string	sequence;
-	f_action	action;
+	t_action	action;
 }				t_binding;
 
-void		bind(t_vector *key_bindings, int key,  f_action action);
+void		bind(t_vector *key_bindings, int key,  t_action action);
 t_binding	*find_binding(t_vector *key_bindings, char *buf);
-void		init_bindings(t_vector *key_bindings);
+void		init_bindings(int vi_mode, t_vector *key_bindings);
+void		update_bindings(int vi_mode, t_vector *key_bindings);
 void		clear_bindings(t_vector *key_bindings);
+
+void		bind_keys(t_vector *key_bindings);
+void		vi_bind_keys(int vi_mode, t_vector *key_bindings);
 
 #endif

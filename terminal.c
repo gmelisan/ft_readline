@@ -6,7 +6,7 @@
 /*   By: gmelisan </var/spool/mail/vladimir>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 10:37:33 by gmelisan          #+#    #+#             */
-/*   Updated: 2019/08/02 23:23:31 by gmelisan         ###   ########.fr       */
+/*   Updated: 2019/08/04 14:16:05 by gmelisan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	term_setup(void)
 	work_tios = g_init_tios;
 	work_tios.c_oflag &= ~OPOST;
 	work_tios.c_lflag &= ~(ICANON | ECHO);
+	/* work_tios.c_lflag |= ISIG; */
 	work_tios.c_cc[VMIN] = 1;
 	work_tios.c_cc[VTIME] = 0;
 	tcsetattr(STDIN, TCSANOW, &work_tios);
